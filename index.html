@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Movie Game</title>
+</head>
+
+<body>
+  <div id="startMenu" style="visibility: visible;">
+    <div>
+      <form>
+        <div>
+          <input id="startingMovie" type="text" placeholder="Movie"></input>
+          <input id="startingActor" type="text" placeholder="Actor"></input>
+        </div>
+        <button id="startGame" type="submit" value="Submit">Start Game</button>
+        <div id="startError"></div>
+      </form>
+    </div>
+  </div>
+  <div id="game" style="visibility: hidden;">
+    <div>
+      <div id="column1"></div>
+      <div id="column2"></div>
+    </div>
+    <div>
+      <input id="guess" type="text" placeholder="Actor or Movie"></input>
+      <div class="buttons">
+        <button id="submitRight" type="submit">Guess Actor</button>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <h4>Jonathan Wilding</h4>
+    <h5><a href="https://www.github.com/j-wilding/the-movie-game">www.github.com/j-wilding/the-movie-game</a></h5>
+  </footer>
+</body>
+
+</html>
