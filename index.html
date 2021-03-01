@@ -9,7 +9,7 @@
   <link href="/tailwind.css" rel="stylesheet">
 </head>
 
-<body class="bg-black text-white">
+<body class="bg-black text-white h-screen">
   <div id="startMenu" class="w-full p-4 bg-red-900 rounded flex flex-col justify-center items-center text-center">
     <div class="title" class="card-header">
       <h1>The Movie Game</h1>
@@ -26,21 +26,22 @@
     </div>
   </div>
   <div id="game" class="m-8 mx-auto p-4 bg-red-900 rounded flex flex-col justify-center items-center text-center hidden">
-    <div>
+    <div class="w-full">
       <input id="guess" class="m-4 px-4 py-2 rounded-lg text-black" type="text" placeholder="Actor or Movie"></input>
       <div id="invalidSelection"></div>
-      <div class="buttons">
-        <button id="leftSubmit" class="m-8 px-4 py-2 rounded-full bg-yellow-500" type="submit" value="movie">Guess Actor</button>
-        <button id="rightSubmit" class="m-8 px-4 py-2 rounded-full bg-yellow-500" type="submit" value="actor">Guess Movie</button>
+      <div class="w-full flex justify-evenly">
+        <button id="leftSubmit" class="px-4 py-2 rounded-full bg-yellow-500" type="submit" value="movie">Guess Actor</button>
+        <button id="rightSubmit" class="px-4 py-2 rounded-full bg-yellow-500" type="submit" value="actor">Guess Movie</button>
       </div>
     </div>
     <div class="flex">
-      <div id="leftCol"  class="flex flex-col items-center"></div>
-      <div id="rightCol" class="flex flex-col items-center"></div>
+      <div id="leftCol"  class="flex flex-col items-center w-1/2"></div>
+      <div id="rightCol" class="flex flex-col items-center w-1/2"></div>
     </div>
   </div>
-  <footer>
-    <h4>Jonathan Wilding</h4>
+  <div class="h-full"></div>
+  <footer class="flex justify-between px-3 items-baseline">
+    <h4>&copy; 2021 Jonathan Wilding</h4>
     <a href="https://www.github.com/j-wilding/the-movie-game">Check out the project on Github!</a>
   </footer>
   <script text="type/javascript" src="/movieGame.js"></script>
