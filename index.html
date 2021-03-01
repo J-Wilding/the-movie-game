@@ -5,53 +5,44 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <title>The Movie Game</title>
+  <link href="/tailwind.css" rel="stylesheet">
 </head>
 
-<body class="">
-  <div id="startMenu" class="card  mx-auto col-sm-8 text-center">
+<body class="bg-black text-white">
+  <div id="startMenu" class="w-full p-4 bg-red-900 rounded flex flex-col justify-center items-center text-center">
     <div class="title" class="card-header">
       <h1>The Movie Game</h1>
     </div>
     <div class="card-body">
       <form>
         <div>
-          <input id="startingMovie" type="text" placeholder="Movie"></input>
-          <input id="startingActor" type="text" placeholder="Actor"></input>
+          <input id="startingMovie" class="m-1 px-4 py-2 rounded-lg text-black" type="text" placeholder="Movie"></input>
+          <input id="startingActor" class="m-1 px-4 py-2 rounded-lg text-black" type="text" placeholder="Actor"></input>
         </div>
-        <button id="startGame" class="btn btn-primary" type="submit" value="Submit">Start Game</button>
+        <button id="startGame" class="m-8 px-4 py-2 rounded-full bg-yellow-500" type="submit" value="Submit">Start Game</button>
         <div id="startError" class="card-footer bg-danger" style="visibility: hidden;"></div>
       </form>
     </div>
   </div>
-  <div id="game" class="mx-auto text-center" style="visibility: hidden; width: 50%;">
+  <div id="game" class="m-8 mx-auto p-4 bg-red-900 rounded flex flex-col justify-center items-center text-center hidden">
     <div>
-      <div id="column1"></div>
-      <div id="column2"></div>
-    </div>
-    <div>
-      <input id="guess" type="text" placeholder="Actor or Movie"></input>
+      <input id="guess" class="m-4 px-4 py-2 rounded-lg text-black" type="text" placeholder="Actor or Movie"></input>
+      <div id="invalidSelection"></div>
       <div class="buttons">
-        <button id="submitRight" class="btn btn-primary" type="submit">Guess Movie</button>
-        <button id="submitRight" class="btn btn-primary" type="submit">Guess Actor</button>
+        <button id="leftSubmit" class="m-8 px-4 py-2 rounded-full bg-yellow-500" type="submit" value="movie">Guess Actor</button>
+        <button id="rightSubmit" class="m-8 px-4 py-2 rounded-full bg-yellow-500" type="submit" value="actor">Guess Movie</button>
       </div>
+    </div>
+    <div class="flex">
+      <div id="leftCol"  class="flex flex-col items-center"></div>
+      <div id="rightCol" class="flex flex-col items-center"></div>
     </div>
   </div>
   <footer>
     <h4>Jonathan Wilding</h4>
-    <a href="https://www.github.com/j-wilding/the-movie-game">www.github.com/j-wilding/the-movie-game</a>
+    <a href="https://www.github.com/j-wilding/the-movie-game">Check out the project on Github!</a>
   </footer>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-  </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-  </script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-  </script>
   <script text="type/javascript" src="/movieGame.js"></script>
 </body>
 
