@@ -22,8 +22,8 @@ document.getElementById("startGame").addEventListener("click", async event => {
     clearError("invalidSelection"); // Since its clearly valid now.
     document.getElementById("startMenu").style.display = "none";
     document.getElementById("game").classList.remove("hidden");
-    document.getElementById("leftCol").insertAdjacentHTML("afterbegin", movieCard);
-    document.getElementById("rightCol").insertAdjacentHTML("afterbegin", actorCard);
+    document.getElementById("leftCol").prepend(movieCard);
+    document.getElementById("rightCol").prepend(actorCard);
   }
 });
 
@@ -44,7 +44,8 @@ const addCard = async (col) => {
   if (card) {
     clearError("invalidSelection"); // Since its clearly valid now.
     let id = `${col}Col`;
-    document.getElementById(id).insertAdjacentHTML("afterbegin", card);
+    // document.getElementById(id).insertAdjacentHTML("afterbegin", card);
+    document.getElementById(id).prepend(card)
   }
 }
 
@@ -59,89 +60,101 @@ const getCard = async (name, type, column, errId) => {
   const query = (type === "actor") ? "person" : "movie";
   const searchUrl = `https://api.themoviedb.org/3/search/${query}?api_key=${APIKEY}&language=en-US&query=${name}&page=1&include_adult=false`;
   let info = {};
-  const response = await fetch(searchUrl)
-    .then(response => response.json())
-    .then(async json => {
-      if (json.total_results === 0) {
-        throw "no " + type + " results";
-      }
-      else {
-        info.id = json.results[0].id;
-        if (type === "actor") {
-          if (state[`${column}History`].length > 0) {
-            const isinthis = await doesMovieHaveActor(json.results[0].id, column);
-            if (!isinthis) {
-              throw `${json.results[0].name} Is not in ${state[`${column}History`][state[`${column}History`].length - 1].name}`;
-            }
-          }
-          info.name = json.results[0].name;
-          return `<div class="p-2 flex flex-col">
-          <img class="card p-2 rounded-t-lg" src="${imageUrl}${json.results[0].profile_path}">
-          <h3 class="p-1 secondary-card rounded-b-lg">${json.results[0].name}</h3>
-          </div>`;
-        } else if (type === "movie") {
-          info.name = json.results[0].title;
-          if (state[`${column}History`].length > 0) {
-            const isinthis = await isActorInMovie(json.results[0].id, column);
-            if (!isinthis) {
-              throw `${state[`${column}History`][state[`${column}History`].length - 1].name} Is not in ${json.results[0].title}`;
-            }
-          }
-          return `<div class="p-2 flex flex-col">
-                   <img class="card rounded-t-lg p-2" src="${imageUrl}${json.results[0].poster_path}" >
-                   <h3 class=" p-1 secondary-card rounded-b-lg">${json.results[0].title}</h3>
-                 </div>`;
-        }
-      }
-    })
-    .catch(error => {
-      setError(error, errId);
-      return null;
-    })
-  if (response) {
-    let btn = document.getElementById(`${column}Submit`);
-    const value = btn.value;
-    const newVal = (value === "movie") ? "actor" : "movie";
-    btn.value = newVal;
-    btn.innerHTML = `Pick ${newVal}`;
-    state[`${column}History`].push(info);
-    console.log(state)
+
+  // Create the div for the info
+  let card = document.createElement("div");
+  card.classList.add("p-2", "flex", "flex-col");
+
+  // fetch the json.
+  const json = await (await fetch(searchUrl)).json();
+  if (json.total_results === 0) {
+    setError("no " + type + " results", errId);
+    return null;
   }
-  // return (response) ? response : false;
-  return response;
+  console.log(json)
+  info.id = json.results[0].id;
+  if (type === "actor") {
+    if (state[`${column}History`].length > 0) {
+      const isinthis = await doesMovieHaveActor(json.results[0].id, column);
+      if (!isinthis) {
+        setError(`${json.results[0].name} Is not in ${state[`${column}History`][state[`${column}History`].length - 1].name}`, errId);
+        return null;
+      }
+    }
+    info.name = json.results[0].name;
+    let img = document.createElement("img");
+    img.setAttribute("src", `${imageUrl}${json.results[0].profile_path}`);
+    img.classList.add("card", "p-2", "rounded-t-lg");
+    let h3Name = document.createElement("h3");
+    h3Name.classList.add("p-1", "secondary-card", "rounded-b-lg");
+    h3Name.innerHTML = `${json.results[0].name}`;
+    h3Name.addEventListener("click", toggleInfo);
+    
+    card.appendChild(img);
+    card.appendChild(h3Name)
+    console.log(card)
+  }
+  else if (type === "movie") {
+    info.name = json.results[0].title;
+    if (state[`${column}History`].length > 0) {
+      const isinthis = await isActorInMovie(json.results[0].id, column);
+      if (!isinthis) {
+        setError(`${state[`${column}History`][state[`${column}History`].length - 1].name} Is not in ${json.results[0].title}`, errId);
+        return null
+      }
+    }
+    let img = document.createElement("img");
+    img.setAttribute("src", `${imageUrl}${json.results[0].poster_path}`);
+    img.classList.add("card", "p-2", "rounded-t-lg");
+    let h3Title = document.createElement("h3");
+    h3Title.classList.add("p-1", "secondary-card", "rounded-b-lg");
+    h3Title.innerHTML = `${json.results[0].title}`;
+    h3Title.addEventListener("click", toggleInfo);
+
+    card.appendChild(img);
+    card.appendChild(h3Title)
+    console.log(card)
+    
+  }
+
+  let btn = document.getElementById(`${column}Submit`);
+  const value = btn.value;
+  const newVal = (value === "movie") ? "actor" : "movie";
+  btn.value = newVal;
+  btn.innerHTML = `Pick ${newVal}`;
+  state[`${column}History`].push(info);
+  console.log(state)
+  
+  return card;
 }
 
 const doesMovieHaveActor = async (actorId, column) => {
   // This is going to check that an actor was actually in the movie
   const movieId = state[`${column}History`][state[`${column}History`].length - 1].id;
   let url = `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${APIKEY}&language=en-US`;
-  const response = await fetch(url)
-    .then(response => response.json())
-    .then(json => {
-      for (let i in json.cast) {
-        console.log(actorId, i.id)
-        if (json.cast[i].id === actorId) {
-          return true;
-        }
-      }
-      return false;
-    })
-  return response;
+  const json = await (await fetch(url)).json();
+  console.log(json);
+  for (let i in json.cast) {
+    if (json.cast[i].id === actorId) {
+      return true;
+    }
+  }
+  return false;
 }
 
 const isActorInMovie = async (movieId, column) => {
   const actorId = state[`${column}History`][state[`${column}History`].length - 1].id;
   let url = `https://api.themoviedb.org/3/person/${actorId}/credits?api_key=${APIKEY}&language=en-US`
-  const response = await fetch(url)
-    .then(response => response.json())
-    .then(json => {
-      for (let i in json.cast) {
-        console.log(actorId, i.id)
-        if (json.cast[i].id === movieId) {
-          return true;
-        }
-      }
-      return false;
-    })
-  return response;
+  const json = await (await fetch(url)).json();
+  console.log(json)
+  for (let i in json.cast) {
+    if (json.cast[i].id === movieId) {
+      return true;
+    }
+  }
+  return false;
+}
+
+const toggleInfo = (event) => {
+
 }
