@@ -76,8 +76,8 @@ const getCard = async (name, type, column, errId) => {
           }
           info.name = json.results[0].name;
           return `<div class="p-2 flex flex-col">
-          <img src="${imageUrl}${json.results[0].profile_path}">
-          <h3>${json.results[0].name}</h3>
+          <img class="card p-2 rounded-t-lg" src="${imageUrl}${json.results[0].profile_path}">
+          <h3 class="p-1 secondary-card rounded-b-lg">${json.results[0].name}</h3>
           </div>`;
         } else if (type === "movie") {
           info.name = json.results[0].title;
@@ -88,8 +88,8 @@ const getCard = async (name, type, column, errId) => {
             }
           }
           return `<div class="p-2 flex flex-col">
-                   <img src="${imageUrl}${json.results[0].poster_path}" >
-                   <h3 style="width: 100%; max-width: 300px">${json.results[0].title}</h3>
+                   <img class="card rounded-t-lg p-2" src="${imageUrl}${json.results[0].poster_path}" >
+                   <h3 class=" p-1 secondary-card rounded-b-lg">${json.results[0].title}</h3>
                  </div>`;
         }
       }
@@ -103,7 +103,7 @@ const getCard = async (name, type, column, errId) => {
     const value = btn.value;
     const newVal = (value === "movie") ? "actor" : "movie";
     btn.value = newVal;
-    btn.innerHTML = `${column[0].toUpperCase() + column.substr(1)} Column</br>Pick ${newVal}`;
+    btn.innerHTML = `Pick ${newVal}`;
     state[`${column}History`].push(info);
     console.log(state)
   }

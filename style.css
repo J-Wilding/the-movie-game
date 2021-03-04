@@ -1,0 +1,20 @@
+/* Dark Color Theme */
+.background {
+    background-color: #18191A;
+}
+
+.card {
+    background-color: #242526;
+}
+
+.secondary-card {
+    background-color: #3A3B3C;
+}
+
+.primary-text {
+    color: #E4E6EB;
+}
+
+.secondary-text {
+    color: #B0B3B8;
+}

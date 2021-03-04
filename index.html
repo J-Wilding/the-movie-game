@@ -7,42 +7,71 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Movie Game</title>
   <link href="/tailwind.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="bg-black text-white h-screen">
-  <div id="startMenu" class="w-full p-4 bg-red-900 rounded flex flex-col justify-center items-center text-center">
-    <div class="title" class="card-header">
+<body class="background primary-text h-screen">
+  <div id="startMenu"
+    class="card w-full p-2 rounded-b flex flex-col justify-center items-center text-center md:w-9/12 md:mx-auto md:rounded-xl">
+    <div class="title" class="flex flex-col items-center">
       <h1>The Movie Game</h1>
+      <div class="secondary-card rounded-xl py-2 mb-3 md:w-9/12 md:mx-auto">
+        <h2>How to Play</h2>
+        <ul class="text-left p-3 m-auto list-disc list-inside">
+          <li>Start by choosing a movie and an unrelated actor.</li>
+          <li>Then you will have the choice to choose an actor in that movie or a movie that that actor has been in.
+          </li>
+          <li>Continue until you get stuck!</li>
+          <li>Its a great game to play with friends and family (we've played for years just going around in a circle).
+          </li>
+        </ul>
+        <h3 class="p-2">You'll be amazed at your movie/actor knowledge.</h3>
+      </div>
     </div>
-    <div class="card-body">
+    <div class="card">
       <form>
         <div>
-          <input id="startingMovie" class="m-1 px-4 py-2 rounded-lg text-black" type="text" placeholder="Movie"></input>
-          <input id="startingActor" class="m-1 px-4 py-2 rounded-lg text-black" type="text" placeholder="Actor"></input>
+          <input id="startingMovie" class="m-1 px-4 py-1 rounded-lg text-black" type="text" placeholder="Movie"></input>
+          <input id="startingActor" class="m-1 px-4 py-1 rounded-lg text-black" type="text" placeholder="Actor"></input>
         </div>
-        <button id="startGame" class="m-8 px-4 py-2 rounded-full bg-yellow-500" type="submit" value="Submit">Start Game</button>
+        <button id="startGame" class="m-2 px-4 py-2 rounded-full bg-yellow-500" type="submit" value="Submit">Start
+          Game</button>
         <div id="startError" class="card-footer bg-danger" style="visibility: hidden;"></div>
       </form>
     </div>
   </div>
-  <div id="game" class="m-8 mx-auto p-4 bg-red-900 rounded flex flex-col justify-center items-center text-center hidden">
+  <div id="game" class="mx-auto p-4 rounded flex flex-col justify-center items-center text-center md:w-9/12 md:mx-auto md:rounded-xl hidden">
+    <h1>The Movie Game</h1>
     <div class="w-full">
       <input id="guess" class="m-4 px-4 py-2 rounded-lg text-black" type="text" placeholder="Actor or Movie"></input>
       <div id="invalidSelection"></div>
-      <div class="w-full flex justify-evenly">
-        <button id="leftSubmit" class="px-4 py-2 rounded-full bg-yellow-500" type="submit" value="movie">Guess Actor</button>
-        <button id="rightSubmit" class="px-4 py-2 rounded-full bg-yellow-500" type="submit" value="actor">Guess Movie</button>
-      </div>
+      <div class="w-full flex justify-evenly"></div>
     </div>
     <div class="flex">
-      <div id="leftCol"  class="flex flex-col items-center w-1/2"></div>
-      <div id="rightCol" class="flex flex-col items-center w-1/2"></div>
+      <div class="flex flex-col items-center w-1/2">
+        <button id="leftSubmit" class="px-4 py-2 w-11/12 rounded-full bg-yellow-500" type="submit" value="movie">Guess
+          Actor</button>
+        <div id="leftCol" class="flex flex-col items-center w-full"></div>
+      </div>
+      <div class="flex flex-col items-center w-1/2">
+        <button id="rightSubmit" class="px-4 py-2 w-11/12 rounded-full bg-yellow-500" type="submit" value="actor">Guess
+          Movie</button>
+        <div id="rightCol" class="flex flex-col items-center w-full"></div>
+      </div>
     </div>
   </div>
-  <div class="h-full"></div>
-  <footer class="flex justify-between px-3 items-baseline">
-    <h4>&copy; 2021 Jonathan Wilding</h4>
-    <a href="https://www.github.com/j-wilding/the-movie-game">Check out the project on Github!</a>
+  <div class="h-1/2"></div>
+  <footer class="flex justify-between px-3 pb-3 items-baseline">
+    <div>
+      <h4>&copy; 2021 Jonathan Wilding</h4>
+      <a href="https://www.github.com/j-wilding/the-movie-game">Check out the project on Github!</a>
+    </div>
+    <div>
+      <h4>Made with the TMDB API</h4>
+      <img
+        src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_long_1-8ba2ac31f354005783fab473602c34c3f4fd207150182061e425d366e4f34596.svg"
+        alt="">
+    </div>
   </footer>
   <script text="type/javascript" src="/movieGame.js"></script>
 </body>
