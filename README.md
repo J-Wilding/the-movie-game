@@ -1,2 +1,3 @@
-# [the-movie-game](movies.jonathanwilding.com)
+# The Movie Game
 
+[Play the Game](https://movies.jonathanwilding.com)
